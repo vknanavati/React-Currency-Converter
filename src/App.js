@@ -272,7 +272,7 @@ function App() {
           >Submit</button>
         </div>
       </form>
-      {conversion && <p>{amount} {from} = {conversion.result.toFixed(2)} {conversion.query.to}</p>}
+      {conversion && <p>{amount} {conversion.query.from} = {conversion.result.toFixed(2)} {conversion.query.to}</p>}
 
     </>
   );
