@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+console.log(process.env)
 
 const currency_codes = [
   "choose currency",
@@ -189,7 +190,7 @@ function App() {
     console.log("Grab initial currency conversion for ", from)
 
     const myHeaders = new Headers();
-    myHeaders.append("apikey", "v12HwdRRmHScKldGKk0OoYqIDiHVKfiD");
+    myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
     const requestOptions = {
       method: 'GET',
       redirect: 'follow',
@@ -211,7 +212,7 @@ function App() {
   const handleClick = e => {
     e.preventDefault();
     const myHeaders = new Headers();
-    myHeaders.append("apikey", "v12HwdRRmHScKldGKk0OoYqIDiHVKfiD");
+    myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
     const requestOptions = {
       method: 'GET',
       redirect: 'follow',
@@ -259,7 +260,6 @@ function App() {
             <select
               onChange={e => setTo(e.target.value)}
             >
-
               {currency_codes.map((currency_code, i) => {
                 { return <option key={i} value={currency_code}>{currency_code}</option> }
               })}
