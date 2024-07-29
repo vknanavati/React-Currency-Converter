@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import {InputLabel,FormControl, Select, Grid, Container, Typography, TextField, MenuItem} from '@mui/material'
 
 console.log(process.env)
 
 const currency_codes = [
-  "choose currency",
+
   "AED",
   "AFN",
   "ALL",
@@ -186,28 +187,28 @@ function App() {
   console.log("from:", from)
   console.log("to:", to)
 
-  useEffect(() => {
-    console.log("Grab initial currency conversion for ", from)
+  // useEffect(() => {
+  //   console.log("Grab initial currency conversion for ", from)
 
-    const myHeaders = new Headers();
-    myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-      headers: myHeaders
-    };
+  //   const myHeaders = new Headers();
+  //   myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
+  //   const requestOptions = {
+  //     method: 'GET',
+  //     redirect: 'follow',
+  //     headers: myHeaders
+  //   };
 
-    console.log("Searching conversion:", "from", from, "to", to)
-    fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        console.log("currency data:", data)
-        setConversion(data)
+  //   console.log("Searching conversion:", "from", from, "to", to)
+  //   fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log("currency data:", data)
+  //       setConversion(data)
 
-      })
-      .catch(error => console.log('error', error));
+  //     })
+  //     .catch(error => console.log('error', error));
 
-  }, [])
+  // }, [])
 
   const handleClick = e => {
     e.preventDefault();
@@ -235,43 +236,85 @@ function App() {
 
   return (
     <>
-      <h2>Currency Conveter</h2>
-
-      <form>
-        <input
-          value={amount}
-          type="text"
-          onChange={e => setAmount(e.target.value)}
-        />
-        <div>
-          <label>From
-            <select
-              onChange={e => setFrom(e.target.value)}
+    <Container>
+      <Grid
+        container
+        justifyContent={"center"}
+        alignItems={"center"}
+        direction={"column"}
+      >
+        <Typography
+          variant="h6"
+          marginTop={5}
+          marginBottom={2}
+        >
+          Currency Conveter
+        </Typography>
+        <form>
+          <Grid
+            container
+            alignItems={"center"}
+            justifyContent={"center"}
+            direction={"column"}
+          >
+            <TextField
+              sx={{
+                width: 100,
+                "& .MuiInputBase-root":{
+                  height: 30
+                }
+              }}
+              value={amount}
+              type="text"
+              onChange={e => setAmount(e.target.value)}
+            />
+            <Grid
+              container
+              marginTop={2}
+              marginBottom={3}
             >
-              {currency_codes.map((currency_code, i) => {
-                { return <option key={i} value={currency_code}>{currency_code}</option> }
-              })}
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label>To
-            <select
-              onChange={e => setTo(e.target.value)}
-            >
-              {currency_codes.map((currency_code, i) => {
-                { return <option key={i} value={currency_code}>{currency_code}</option> }
-              })}
-            </select>
-          </label>
-        </div>
-        <div>
-          <button
-            onClick={e => handleClick(e)}
-          >Submit</button>
-        </div>
-      </form>
+                <Grid item
+                  margin={2}
+                  padding={2}
+                >
+                  <FormControl sx={{width: 100}}>
+                  <InputLabel>From</InputLabel>
+                    <Select
+                      onChange={e => setFrom(e.target.value)}
+                    >
+                      {currency_codes.map((currency_code, i) => {
+                         return <MenuItem key={i} value={currency_code}>{currency_code}</MenuItem>
+                      })}
+                    </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item
+                  margin={2}
+                  padding={2}
+                >
+                  <FormControl sx={{width: 100}}>
+                    <InputLabel
+                    >To
+                    </InputLabel>
+                      <Select
+                        onChange={e => setTo(e.target.value)}
+                      >
+                        {currency_codes.map((currency_code, i) => {
+                          return <MenuItem key={i} value={currency_code}>{currency_code}</MenuItem>
+                        })}
+                      </Select>
+                    </FormControl>
+                </Grid>
+            </Grid>
+            <div>
+              <button
+                onClick={e => handleClick(e)}
+              >Submit</button>
+            </div>
+          </Grid>
+        </form>
+      </Grid>
+    </Container>
       {conversion && <p>{amount} {conversion.query.from} = {conversion.result.toFixed(2)} {conversion.query.to}</p>}
 
     </>
