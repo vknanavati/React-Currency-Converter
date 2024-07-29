@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {InputLabel,FormControl, Select, Grid, Container, Typography, TextField, MenuItem} from '@mui/material'
+import {Button, InputLabel,FormControl, Select, Grid, Container, Typography, TextField, MenuItem} from '@mui/material'
 
 console.log(process.env)
 
@@ -244,9 +244,9 @@ function App() {
         direction={"column"}
       >
         <Typography
-          variant="h6"
+          variant="h4"
           marginTop={5}
-          marginBottom={2}
+          marginBottom={4}
         >
           Currency Conveter
         </Typography>
@@ -259,9 +259,16 @@ function App() {
           >
             <TextField
               sx={{
-                width: 100,
+                width: 160,
                 "& .MuiInputBase-root":{
-                  height: 30
+                  height: 50
+                },
+                input: {
+                  textAlign: "center",
+                  fontSize: 30
+                },
+                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#00CCCC"
                 }
               }}
               value={amount}
@@ -277,40 +284,80 @@ function App() {
                   margin={2}
                   padding={2}
                 >
-                  <FormControl sx={{width: 100}}>
-                  <InputLabel>From</InputLabel>
-                    <Select
-                      onChange={e => setFrom(e.target.value)}
-                    >
-                      {currency_codes.map((currency_code, i) => {
-                         return <MenuItem key={i} value={currency_code}>{currency_code}</MenuItem>
-                      })}
-                    </Select>
+                  <FormControl sx={{width: 120}}>
+                    <InputLabel
+                      sx={{
+                        '&.MuiInputLabel-shrink':{
+                          color:"#00CCCC"
+                        },
+                        fontSize: 25
+                      }}
+                    >From</InputLabel>
+                      <Select
+                        sx={{
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline":{
+                            borderColor: "#00CCCC"
+                          },
+                          fontSize: 25
+                        }}
+                        label="From"
+                        onChange={e => setFrom(e.target.value)}
+                      >
+                        {currency_codes.map((currency_code, i) => {
+                          return <MenuItem sx={{fontSize: 25}} key={i} value={currency_code}>{currency_code}</MenuItem>
+                        })}
+                      </Select>
                     </FormControl>
                 </Grid>
                 <Grid item
                   margin={2}
                   padding={2}
                 >
-                  <FormControl sx={{width: 100}}>
+                  <FormControl sx={{width: 120}}>
                     <InputLabel
-                    >To
+                      sx={{
+                        '&.MuiInputLabel-shrink':{
+                          color:"#00CCCC"
+                        },
+                        fontSize: 25
+                      }}
+                    >
+                      To
                     </InputLabel>
                       <Select
+                        sx={{
+                          "&.Mui-focused .MuiOutlinedInput-notchedOutline":{
+                            borderColor: "#00CCCC"
+                          },
+                          fontSize: 25,
+                        }}
+                        label="To"
                         onChange={e => setTo(e.target.value)}
                       >
                         {currency_codes.map((currency_code, i) => {
-                          return <MenuItem key={i} value={currency_code}>{currency_code}</MenuItem>
+                          return <MenuItem sx={{fontSize:25}} key={i} value={currency_code}>{currency_code}</MenuItem>
                         })}
                       </Select>
                     </FormControl>
                 </Grid>
             </Grid>
-            <div>
-              <button
+            <Grid>
+              <Button
+                size="large"
+                variant="contained"
+                sx={{
+                  backgroundColor: "#00CCCC",
+                  "&:hover": {
+                    backgroundColor: "#00CCCC",
+                  },
+                  fontWeight: 700,
+                  fontSize: 25
+                }}
                 onClick={e => handleClick(e)}
-              >Submit</button>
-            </div>
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
         </form>
       </Grid>
