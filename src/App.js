@@ -187,28 +187,28 @@ function App() {
   console.log("from:", from)
   console.log("to:", to)
 
-  // useEffect(() => {
-  //   console.log("Grab initial currency conversion for ", from)
+  useEffect(() => {
+    console.log("Grab initial currency conversion for ", from)
 
-  //   const myHeaders = new Headers();
-  //   myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     redirect: 'follow',
-  //     headers: myHeaders
-  //   };
+    const myHeaders = new Headers();
+    myHeaders.append("apikey", process.env.REACT_APP_API_KEY);
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow',
+      headers: myHeaders
+    };
 
-  //   console.log("Searching conversion:", "from", from, "to", to)
-  //   fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions)
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log("currency data:", data)
-  //       setConversion(data)
+    console.log("Searching conversion:", "from", from, "to", to)
+    fetch(`https://api.apilayer.com/exchangerates_data/convert?to=${to}&from=${from}&amount=${amount}`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log("currency data:", data)
+        setConversion(data)
 
-  //     })
-  //     .catch(error => console.log('error', error));
+      })
+      .catch(error => console.log('error', error));
 
-  // }, [])
+  }, )
 
   const handleClick = e => {
     e.preventDefault();
